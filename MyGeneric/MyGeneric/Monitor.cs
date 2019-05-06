@@ -1,31 +1,34 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Text;
 
 namespace MyGeneric
 {
     public static class Monitor
     {
         #region 私有方法
-        private static void ShowInt(int value) {
+        private static void ShowInt(int value)
+        {
             // do nothing
         }
 
-        private static void ShowObject(object value) {
+        private static void ShowObject(object value)
+        {
             // do nothing
         }
 
-        private static void Show<T>(T value) {
+        private static void Show<T>(T value)
+        {
             // do nothing
         }
         #endregion
-        public static void Show() {
+        public static void Show()
+        {
             int intValue = 1;
 
             var stopwatch = new Stopwatch();
             stopwatch.Start();
-            for (int i = 0; i <= 100000000; i++) {
+            for (int i = 0; i <= 100000000; i++)
+            {
                 ShowInt(intValue);
             }
             stopwatch.Stop();
