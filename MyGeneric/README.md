@@ -84,5 +84,12 @@ public static void ShowBase(People people) {
 
 - 泛型 可以 设置多个约束 例如 `where T: People, Iworks,ISports` 
 
+
+## 协变 逆变
+.net 4.0 的时候 出现的
+
+
+## 泛型缓存
+
 ## 参考资料
 https://www.cnblogs.com/dotnet261010/p/9034594.html
