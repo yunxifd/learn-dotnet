@@ -47,6 +47,14 @@ namespace MyGeneric
                 //ICustomerListIn<Bird> customerList3 = new CustomerListIn<Sparrow>();
                 ICustomerListIn<Sparrow> customerList2 = new CustomerListIn<Sparrow>();
             }
+            
+            // 协变 + 逆变 同时使用
+            {
+                IMyList<Sparrow, Bird> myList1 = new MyList<Sparrow, Bird>();
+                IMyList<Sparrow, Bird> myList2 = new MyList<Sparrow, Sparrow>();//协变
+                IMyList<Sparrow, Bird> myList3 = new MyList<Bird, Bird>();//逆变
+                IMyList<Sparrow, Bird> myList4 = new MyList<Bird, Sparrow>();//逆变+协变
+            }
         }
     }
 
@@ -96,6 +104,30 @@ namespace MyGeneric
         public void Show(T t)
         {
             throw new System.NotImplementedException();
+        }
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <typeparam name="inT">逆变</typeparam>
+    /// <typeparam name="outT">协变</typeparam>
+    public interface IMyList<in inT, out outT>
+    {
+        void Show(inT t);
+        outT Get();
+    }
+
+    public class MyList<T1, T2> : IMyList<T1, T2>
+    {
+        public void Show(T1 t)
+        {
+            throw new NotImplementedException();
+        }
+
+        public T2 Get()
+        {
+            throw new NotImplementedException();
         }
     }
 }

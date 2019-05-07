@@ -70,7 +70,9 @@ namespace MyGeneric
             //Constraint.Show(japanese); 由于japannese 不是继承自 People 类所以这里不能使用
 
             // 为啥不直接使用基类 方法
-
+            
+            // 泛型类缓存
+            GenericCacheTest.Show();
         }
     }
 }
