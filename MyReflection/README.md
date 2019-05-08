@@ -1,9 +1,7 @@
-反射 System.Reflection .Net 框架提供的帮助类，用来读取并使用 metadata
+# 反射
 
-1. dll-
-1. 反射加载dll，读取module 类 方法 特性
-1. 反射创建对象
-1. 反射调用
+`System.Reflection` 和 `System.Type`，使你能够获取有关加载的程序集和其中定义的类型的信息，如类、接口和值类型。 可以使用反射在运行时创建、调用和访问类型实例。
+
 
 ## 参考资料
 
