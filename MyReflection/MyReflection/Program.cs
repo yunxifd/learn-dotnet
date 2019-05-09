@@ -91,12 +91,14 @@ namespace MyReflection
                 }
                 {
                     var a = typeof(int); // 获取类型的type
-                    var b = typeof(int).GetType(); // 获取变量的type
+                    const int c = 1;
+                    var b = c.GetType(); // 获取变量的type
 
                     Console.WriteLine(a == b);
                 }
 
                 // 通过反射 调用方法
+                // 使用场景 MVC 中的 url 映射
                 {
                     // 调用 有参构造函数
                     Assembly assembly = Assembly.Load("Project.DB.MySql");
@@ -109,17 +111,58 @@ namespace MyReflection
                         MethodInfo method = type2.GetMethod("ShowInfo");
                         method.Invoke(obj1, null);
                     }
+                    // 重载方法 showInfo 有多个
+                    {
+                        // 调用 ShowInfo2(int id)
+                        MethodInfo method1 = type2.GetMethod("ShowInfo2", new Type[] { typeof(int) });
+                        method1.Invoke(obj1, new object[] { 1 });
+                        // 调用 ShowInfo2(int id, string name)
+                        MethodInfo method2 = type2.GetMethod("ShowInfo2", new Type[] { typeof(int), typeof(string) });
+                        method2.Invoke(obj1, new object[] { 1, "李磊" });
+                    }
                     // 静态方法
                     {
                         MethodInfo method = type2.GetMethod("StaticShow");
                         method.Invoke(obj1, null);
-                        // 静态方法 可以不用传实例对象
+                        // 静态方法 可以不用传实例对象 因此这里可以直接传递 null
                         method.Invoke(null, null);
                     }
                     // 私有方法
                     {
                         MethodInfo method = type2.GetMethod("PrivateShow", BindingFlags.NonPublic | BindingFlags.Instance);
-                        //method.Invoke(obj1, null);
+                        method.Invoke(obj1, null);
+                    }
+                    // 泛型方法
+                    {
+                        Assembly assembly2 = Assembly.Load("Project.DB.MySql");
+                        Type type3 = assembly2.GetType("Project.DB.MySql.GenericClass`3");
+                        Type newType = type3.MakeGenericType(typeof(Guid), typeof(string), typeof(int));
+                        object oGeneric = Activator.CreateInstance(newType);
+                        MethodInfo method = newType.GetMethod("Show");
+                        // 设置泛型方法 的 泛型类型 Show<W>(T1 t1, T2 t2, T3 t3) 即 W的类型
+                        MethodInfo methodNew = method.MakeGenericMethod(typeof(Guid));
+                        methodNew.Invoke(oGeneric, new object[] { Guid.NewGuid(), "李磊", 28 });
+                    }
+                }
+
+                // 通过反射 获取 字段 
+                // 使用场景 ORM
+                {
+                    Student student = new Student
+                    {
+                        Id = 1,
+                        Name = "李磊"
+                    };
+                    Console.WriteLine($"{student.Id} {student.Name}");
+
+                    object student2 = Activator.CreateInstance(typeof(Student), 2, "李翰");
+                    foreach (var property in typeof(Student).GetProperties())
+                    {
+                        // 修改 属性值
+                        if(property.Name.Equals("Name"))
+                            property.SetValue(student2,"韩梅梅");
+                        // 获取属性值
+                        Console.WriteLine(property.Name+":"+ property.GetValue(student2));
                     }
                 }
             }

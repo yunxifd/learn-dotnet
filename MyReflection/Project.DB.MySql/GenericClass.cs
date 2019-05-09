@@ -2,7 +2,7 @@
 {
     public class GenericClass<T1, T2, T3>
     {
-        public void Show(T1 t1, T2 t2, T3 t3)
+        public void Show<W>(T1 t1, T2 t2, T3 t3)
         {
             System.Console.WriteLine($"{t1.GetType().Name} {t2.GetType().Name} {t3.GetType().Name}");
         }
