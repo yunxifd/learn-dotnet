@@ -164,6 +164,17 @@ namespace MyReflection
                         // 获取属性值
                         Console.WriteLine(property.Name+":"+ property.GetValue(student2));
                     }
+
+                    foreach (var field in typeof(Student).GetFields())
+                    {
+                        // 修改 属性值
+                        if (field.Name.Equals("Name"))
+                            field.SetValue(student2, "韩梅梅");
+                        // 获取属性值
+                        Console.WriteLine(field.Name + ":" + field.GetValue(student2));
+                    }
+
+
                 }
             }
         }
