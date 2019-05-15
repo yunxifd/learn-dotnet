@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Reflection;
+using MyAttribute.Extend;
 
 namespace MyAttribute
 {
@@ -88,6 +89,29 @@ namespace MyAttribute
                 CustomAttribute attribute = returnParameterInfo.GetCustomAttribute<CustomAttribute>();
                 
                 Console.WriteLine($"{attribute.Description} {attribute.Remark}");
+            }
+            
+            
+            // 获取枚举值 前端显示名称
+            {
+                Console.WriteLine(UserState.Normal.GetRemark());
+                Console.WriteLine(UserState.Frozen.GetRemark());
+                Console.WriteLine(UserState.Deleted.GetRemark());
+                Console.WriteLine(RemarkExtension.GetRemark(UserState.Deleted));
+            }
+            
+            // 使用 特性 进行 数据合法性校验
+            {
+                var student1 = new Student()
+                {
+                    QQ = 5
+                };
+                var student2 = new Student()
+                {
+                    QQ = 6
+                };
+                Console.WriteLine(student1.QQ.Validate());
+                Console.WriteLine(student2.QQ.Validate());
             }
         }
     }

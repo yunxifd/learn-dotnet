@@ -1,3 +1,4 @@
+using MyAttribute.Extend;
 using System;
 
 namespace MyAttribute
@@ -11,7 +12,9 @@ namespace MyAttribute
         [Custom]
         public int Id { get; set; }
         public string Name { get; set; }
-        
+        [LongAttribute(1,100)]
+        public long QQ { get; set; }
+
         // 给方法添加特性
         [Custom]
         public void Study()
